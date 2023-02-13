@@ -56,7 +56,7 @@ function App() {
     <div className="App">
       <Input value={searchStr} onChange={(e) => setSearchStr(e.target.value)} />
 
-      <div>
+      <div className="elements">
         {data?.photos.map((element) => {
           const { src, alt, url } = element;
           return <Image src={src.large} alt={alt} key={url} />;
