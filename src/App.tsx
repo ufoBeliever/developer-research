@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Input, Image } from "./components";
+import { Input, Image, Carousel } from "./components";
 import "./styles/reset.scss";
 import "./styles/global.scss";
 import axios from "axios";
@@ -62,6 +62,16 @@ function App() {
           return <Image src={src.large} alt={alt} key={url} />;
         })}
       </div>
+      <Carousel
+        images={
+          data
+            ? data?.photos.map((element) => {
+                const { src, alt } = element;
+                return { src: src.large, alt };
+              })
+            : []
+        }
+      />
     </div>
   );
 }

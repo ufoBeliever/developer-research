@@ -3,6 +3,8 @@
   flex-direction: column;
   padding: 16px;
   align-items: center;
+  justify-content: space-between;
+  height: 70vh;
 }
 
 .elements {
@@ -10,5 +12,10 @@
   align-items: center;
   justify-content: space-between;
   gap: 15px;
-  height: 70vh;
+}
+
+@media screen and (max-width: 1200px) {
+  .elements {
+    display: none;
+  }
 }

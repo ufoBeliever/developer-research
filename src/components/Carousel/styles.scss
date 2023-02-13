@@ -1,0 +1,46 @@
+.carousel {
+  width: 500px;
+  background-color: rgb(247, 247, 247);
+  border-radius: 15px;
+  border: 2px solid rgb(167, 167, 167);
+  height: 300px;
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+
+  &__button {
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+  }
+
+  &__items {
+    display: flex;
+    height: 250px;
+    transition: 1s;
+  }
+
+  &__content {
+    height: 250px;
+    width: 350px;
+    overflow: hidden;
+  }
+
+  &__item {
+    height: 250px;
+    width: 350px;
+
+    img {
+      height: 250px;
+      width: 350px;
+      object-fit: contain;
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .carousel {
+    display: flex;
+  }
+}
