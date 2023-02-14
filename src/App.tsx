@@ -3,16 +3,15 @@ import { Input, Image, Carousel } from "./components";
 import "./styles/reset.scss";
 import "./styles/global.scss";
 import axios from "axios";
-import { ILoadingData } from "./types/types";
+import { useStoreActions, useStoreState } from "./store/hooks";
+import { IResponse } from "./types/types";
 
 function App() {
-  const [{ data, error }, setLoadingData] = useState<ILoadingData>({
-    data: null,
-    error: false,
-  });
+  const { images } = useStoreState((state) => state);
+  const { addImage } = useStoreActions((actions) => actions);
 
   const [searchStr, setSearchStr] = useState<string>("");
-  const URL = `https://api.pexels.com/v1/search?per_page=5&query=`;
+  const URL = `https://api.pexels.com/v1/search?per_page=1&query=`;
 
   const debounce = (fn: Function, ms = 300) => {
     let timeoutId: ReturnType<typeof setTimeout>;
@@ -25,16 +24,10 @@ function App() {
   const requestImages = useCallback(
     debounce(async (url: string) => {
       try {
-        const { data } = await axios.get(URL + url);
-        setLoadingData({
-          data,
-          error: false,
-        });
+        const data: IResponse = (await axios.get(URL + url)).data;
+        addImage({ src: data.photos[0].src.large, alt: data.photos[0].alt });
       } catch {
-        setLoadingData({
-          data: null,
-          error: true,
-        });
+        return null;
       }
     }, 1000),
     []
@@ -48,31 +41,23 @@ function App() {
     }
   }, [searchStr]);
 
-  if (error) {
-    return <div>Error! Reload page</div>;
-  }
-
   return (
     <div className="App">
       <Input value={searchStr} onChange={(e) => setSearchStr(e.target.value)} />
 
       <div className="response-images">
-        <div className="response-images__elements">
-          {data?.photos.map((element) => {
-            const { src, alt, url } = element;
-            return <Image src={src.large} alt={alt} key={url} />;
-          })}
-        </div>
-        <Carousel
-          images={
-            data
-              ? data?.photos.map((element) => {
-                  const { src, alt } = element;
-                  return { src: src.large, alt };
-                })
-              : []
-          }
-        />
+        {images.length ? (
+          <>
+            <div className="response-images__elements">
+              {images.map((element, i) => {
+                return <Image {...element} key={i} />;
+              })}
+            </div>
+            <Carousel images={images ? images : []} />
+          </>
+        ) : (
+          <span className="response-images__no-images">No elements yet</span>
+        )}
       </div>
     </div>
   );

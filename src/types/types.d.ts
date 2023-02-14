@@ -27,8 +27,3 @@ export interface IResponse {
   per_page: number;
   photos: IImage[];
 }
-
-export interface ILoadingData {
-  data: null | IResponse;
-  error: boolean;
-}
