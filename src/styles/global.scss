@@ -4,18 +4,23 @@
   padding: 16px;
   align-items: center;
   justify-content: space-between;
-  height: 70vh;
+  height: 100vh;
 }
 
-.elements {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 15px;
+.response-images {
+  height: 70vh;
+  &__elements {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+  }
 }
 
 @media screen and (max-width: 1200px) {
-  .elements {
-    display: none;
+  .response-images {
+    &__elements {
+      display: none;
+    }
   }
 }

@@ -56,22 +56,24 @@ function App() {
     <div className="App">
       <Input value={searchStr} onChange={(e) => setSearchStr(e.target.value)} />
 
-      <div className="elements">
-        {data?.photos.map((element) => {
-          const { src, alt, url } = element;
-          return <Image src={src.large} alt={alt} key={url} />;
-        })}
+      <div className="response-images">
+        <div className="response-images__elements">
+          {data?.photos.map((element) => {
+            const { src, alt, url } = element;
+            return <Image src={src.large} alt={alt} key={url} />;
+          })}
+        </div>
+        <Carousel
+          images={
+            data
+              ? data?.photos.map((element) => {
+                  const { src, alt } = element;
+                  return { src: src.large, alt };
+                })
+              : []
+          }
+        />
       </div>
-      <Carousel
-        images={
-          data
-            ? data?.photos.map((element) => {
-                const { src, alt } = element;
-                return { src: src.large, alt };
-              })
-            : []
-        }
-      />
     </div>
   );
 }
