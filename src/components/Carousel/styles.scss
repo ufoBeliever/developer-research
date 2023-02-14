@@ -30,3 +30,20 @@
     display: flex;
   }
 }
+
+@media screen and (max-width: 1000px) {
+  .carousel {
+    width: 100%;
+    &__button {
+      visibility: hidden;
+    }
+
+    &__content {
+      overflow: scroll;
+    }
+
+    &__items {
+      transform: none !important;
+    }
+  }
+}
