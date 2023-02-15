@@ -9,3 +9,9 @@
   border-radius: 15px;
   border: 2px solid rgb(167, 167, 167);
 }
+
+@media screen and (max-width: 550px) {
+  .input {
+    width: 90%;
+  }
+}
